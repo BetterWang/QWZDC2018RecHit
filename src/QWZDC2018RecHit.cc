@@ -30,6 +30,8 @@
 #include "DataFormats/HcalRecHit/interface/HcalRecHitDefs.h"
 #include "DataFormats/HcalDetId/interface/HcalZDCDetId.h"
 
+//#include <string>
+
 class QWZDC2018RecHit : public edm::EDProducer {
 public:
 	explicit QWZDC2018RecHit(const edm::ParameterSet&);
@@ -59,7 +61,7 @@ QWZDC2018RecHit::QWZDC2018RecHit(const edm::ParameterSet& pset) :
 
 	// Care only ZDC EM and HAD channels
 	// RPD channels not considered now
-	std::map<std::stirng, uint32_t>		cname2did_;
+	std::map<std::string, uint32_t>		cname2did_;
 	for ( int channel = 1; channel < 5; channel++ ) {
 		// HAD
 		auto did = HcalZDCDetId(HcalZDCDetId::HAD, true, channel);
@@ -118,17 +120,17 @@ void QWZDC2018RecHit::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 	int idx = 0;
 	for ( auto it = psrcDid->begin(); it != psrcDid->end(); it++ ) {
-		charge[ cname2str_[did()] ] = new double[NS];
+		charge[ cname2str_[uint32_t(*it)] ] = new double[NS];
 		for ( int ts = 0; ts < NS; ts++ ) {
-			charge[ cname2str_[did()] ] = psrcfC[idx];
-			energy[ did() ] = psrcfC[idx] * calib_[did()];
+			charge[ cname2str_[uint32_t(*it)] ][ts] = (*psrcfC)[idx];
+			energy[ uint32_t(*it) ][ts] = (*psrcfC)[idx] * calib_[uint32_t(*it)];
 			idx++;
 		}
 	}
 
 	for ( auto it = psrcDid->begin(); it != psrcDid->end(); it++ ) {
 		double E = energy[uint32_t(*it)][4] + energy[uint32_t(*it)][5] + energy[uint32_t(*it)][6];
-		prec->push_back( ZDCRecHit( HcalZDCDetId(uint32_t(*it)), energy, 0, energy ) );
+		prec->push_back( ZDCRecHit( HcalZDCDetId(uint32_t(*it)), E, 0, E) );
 	}
 
 	iEvent.put(std::move(prec));
