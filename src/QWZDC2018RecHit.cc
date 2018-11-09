@@ -48,6 +48,8 @@ private:
 
 	std::map<uint32_t, std::string>		cname2str_;
 	std::map<uint32_t, double>		calib_;
+	double			Pscale_;
+	double			Mscale_;
 };
 
 
@@ -86,7 +88,13 @@ QWZDC2018RecHit::QWZDC2018RecHit(const edm::ParameterSet& pset) :
 
 	for ( auto ch = calib.begin(); ch != calib.end(); ch++ ) {
 		auto ch_str = ch->getUntrackedParameter<std::string>("object");
-		calib_[cname2did_[ch_str]] = ch->getUntrackedParameter<double>("calib");
+		if ( ch_str == "Pscale" ) {
+			Pscale_ = ch->getUntrackedParameter<double>("calib");
+		} else if ( ch_str == "Pscale" ) {
+			Mscale_ = ch->getUntrackedParameter<double>("calib");
+		} else {
+			calib_[cname2did_[ch_str]] = ch->getUntrackedParameter<double>("calib");
+		}
 	}
 
 	produces<ZDCRecHitCollection>();
