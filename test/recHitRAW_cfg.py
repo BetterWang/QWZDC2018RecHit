@@ -175,8 +175,7 @@ process.digiPath = cms.Path(
 
 process.output = cms.OutputModule(
 		'PoolOutputModule',
-		outputCommands = cms.untracked.vstring("drop *",
-			"keep *_QWzdcreco_*_QWTree",
+		outputCommands = cms.untracked.vstring("keep *",
 			),
 		SelectEvents = cms.untracked.PSet(
 			SelectEvents = cms.vstring('digiPath')
@@ -184,4 +183,4 @@ process.output = cms.OutputModule(
 		fileName = cms.untracked.string('zdcRecHit_'+runNumber+options.outputTag+'.root')
 		)
 
-#process.outpath = cms.EndPath(process.output)
+process.outpath = cms.EndPath(process.output)

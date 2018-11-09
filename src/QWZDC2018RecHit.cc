@@ -30,7 +30,7 @@
 #include "DataFormats/HcalRecHit/interface/HcalRecHitDefs.h"
 #include "DataFormats/HcalDetId/interface/HcalZDCDetId.h"
 
-//#include <string>
+#include <iostream>
 
 class QWZDC2018RecHit : public edm::EDProducer {
 public:
@@ -68,20 +68,22 @@ QWZDC2018RecHit::QWZDC2018RecHit(const edm::ParameterSet& pset) :
 		// HAD
 		auto did = HcalZDCDetId(HcalZDCDetId::HAD, true, channel);
 		cname2did_[ std::string("hZDCP_HAD") + std::to_string(channel) ] = did();
-		cname2str_[ did ] = std::string("hZDCP_HAD") + std::to_string(channel);
+		cname2str_[ did() ] = std::string("hZDCP_HAD") + std::to_string(channel);
 
 		did = HcalZDCDetId(HcalZDCDetId::HAD, false, channel);
 		cname2did_[ std::string("hZDCM_HAD") + std::to_string(channel) ] = did();
-		cname2str_[ did ] = std::string("hZDCM_HAD") + std::to_string(channel);
+		cname2str_[ did() ] = std::string("hZDCM_HAD") + std::to_string(channel);
 	}
 
-	for ( int channel = 1; channel < 5; channel++ ) {
+	for ( int channel = 1; channel < 6; channel++ ) {
 		// EM
 		auto did = HcalZDCDetId(HcalZDCDetId::EM, true, channel);
 		cname2did_[ std::string("hZDCP_EM") + std::to_string(channel) ] = did();
+		cname2str_[ did() ] = std::string("hZDCP_EM") + std::to_string(channel);
 
 		did = HcalZDCDetId(HcalZDCDetId::EM, false, channel);
 		cname2did_[ std::string("hZDCM_EM") + std::to_string(channel) ] = did();
+		cname2str_[ did() ] = std::string("hZDCM_EM") + std::to_string(channel);
 	}
 
 	std::vector<edm::ParameterSet> calib = pset.getParameter<std::vector<edm::ParameterSet> >("ZDCCalib");
@@ -129,6 +131,7 @@ void QWZDC2018RecHit::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	int idx = 0;
 	for ( auto it = psrcDid->begin(); it != psrcDid->end(); it++ ) {
 		charge[ cname2str_[uint32_t(*it)] ] = new double[NS];
+		energy[ uint32_t(*it) ] = new double[NS];
 		for ( int ts = 0; ts < NS; ts++ ) {
 			charge[ cname2str_[uint32_t(*it)] ][ts] = (*psrcfC)[idx];
 			energy[ uint32_t(*it) ][ts] = (*psrcfC)[idx] * calib_[uint32_t(*it)];
@@ -138,7 +141,7 @@ void QWZDC2018RecHit::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 	for ( auto it = psrcDid->begin(); it != psrcDid->end(); it++ ) {
 		double E = energy[uint32_t(*it)][4] + energy[uint32_t(*it)][5] + energy[uint32_t(*it)][6];
-		HcalZDCDetId did(uint32_t(*it));
+		HcalZDCDetId did = HcalZDCDetId( uint32_t(*it) );
 		if ( did.zside() > 0 ) {
 			E /= Pscale_;
 		} else {
