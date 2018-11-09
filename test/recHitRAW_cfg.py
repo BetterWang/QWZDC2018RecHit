@@ -181,7 +181,7 @@ process.output = cms.OutputModule(
 		SelectEvents = cms.untracked.PSet(
 			SelectEvents = cms.vstring('digiPath')
 			),
-		fileName = cms.untracked.string('zdcRecHit_'+runNumber+'_'+'.root')
+		fileName = cms.untracked.string('zdcRecHit_'+runNumber+options.outputTag+'.root')
 		)
 
 #process.outpath = cms.EndPath(process.output)
