@@ -21,10 +21,10 @@
 #include "boost/bimap.hpp"
 
 using namespace std;
-class QWZDC2018Producer : public edm::EDProducer {
+class QWZDC2018Producer2 : public edm::EDProducer {
 public:
-	explicit QWZDC2018Producer(const edm::ParameterSet&);
-	~QWZDC2018Producer();
+	explicit QWZDC2018Producer2(const edm::ParameterSet&);
+	~QWZDC2018Producer2();
 
 private:
 	virtual void produce(edm::Event&, const edm::EventSetup&) override;
@@ -42,7 +42,7 @@ private:
 };
 
 
-QWZDC2018Producer::QWZDC2018Producer(const edm::ParameterSet& pset) :
+QWZDC2018Producer2::QWZDC2018Producer2(const edm::ParameterSet& pset) :
 	Src_(pset.getUntrackedParameter<edm::InputTag>("Src")),
 	SOI_(pset.getUntrackedParameter<int>("SOI", 4)),
 	bHardCode_(pset.getUntrackedParameter<bool>("HardCode", true)), // has to be hard coded now, calibration format is not working at the moment =_=
@@ -110,12 +110,12 @@ QWZDC2018Producer::QWZDC2018Producer(const edm::ParameterSet& pset) :
 //	produces< double >("hadSumN");
 }
 
-QWZDC2018Producer::~QWZDC2018Producer()
+QWZDC2018Producer2::~QWZDC2018Producer2()
 {
 	return;
 }
 
-void QWZDC2018Producer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
+void QWZDC2018Producer2::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 	using namespace edm;
 
@@ -229,10 +229,10 @@ void QWZDC2018Producer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 }
 
 
-void QWZDC2018Producer::beginRun(const edm::Run &r, const edm::EventSetup & iSetup)
+void QWZDC2018Producer2::beginRun(const edm::Run &r, const edm::EventSetup & iSetup)
 {
 	return;
 }
 
 
-DEFINE_FWK_MODULE(QWZDC2018Producer);
+DEFINE_FWK_MODULE(QWZDC2018Producer2);
