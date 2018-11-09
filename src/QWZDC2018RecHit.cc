@@ -90,7 +90,7 @@ QWZDC2018RecHit::QWZDC2018RecHit(const edm::ParameterSet& pset) :
 		auto ch_str = ch->getUntrackedParameter<std::string>("object");
 		if ( ch_str == "Pscale" ) {
 			Pscale_ = ch->getUntrackedParameter<double>("calib");
-		} else if ( ch_str == "Pscale" ) {
+		} else if ( ch_str == "Mscale" ) {
 			Mscale_ = ch->getUntrackedParameter<double>("calib");
 		} else {
 			calib_[cname2did_[ch_str]] = ch->getUntrackedParameter<double>("calib");
@@ -138,6 +138,12 @@ void QWZDC2018RecHit::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 	for ( auto it = psrcDid->begin(); it != psrcDid->end(); it++ ) {
 		double E = energy[uint32_t(*it)][4] + energy[uint32_t(*it)][5] + energy[uint32_t(*it)][6];
+		HcalZDCDetId did(uint32_t(*it));
+		if ( did.zside() > 0 ) {
+			E /= Pscale_;
+		} else {
+			E /= Mscale_;
+		}
 		prec->push_back( ZDCRecHit( HcalZDCDetId(uint32_t(*it)), E, 0, E) );
 	}
 
