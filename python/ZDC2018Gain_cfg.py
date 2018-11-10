@@ -161,9 +161,11 @@ gainFill7435 = cms.VPSet(
 		cms.PSet(
 			object = cms.untracked.string('Pscale'),
 			calib = cms.untracked.double(2.67)
+			#calib = cms.untracked.double(1.)
 		),
 		cms.PSet(
 			object = cms.untracked.string('Mscale'),
 			calib = cms.untracked.double(4.45)
+			#calib = cms.untracked.double(1.)
 		),
         )
