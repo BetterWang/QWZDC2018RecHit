@@ -34,3 +34,5 @@ scram b
 cd test
 cmsRun recHitRAW_cfg.py runNumber=326480 runInputDir=/eos/cms/store/hidata/HIRun2018A/HIMinimumBias2/RAW/v1/000/ source=PoolSource rawTag='rawDataRepacker' outputTag=_MB2RecHit hlt=HLT_HIMinimumBias_part2_v`
 ```
+
+# Again, VERY PRELIMINARY
