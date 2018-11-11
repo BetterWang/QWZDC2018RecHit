@@ -175,7 +175,8 @@ process.digiPath = cms.Path(
 
 process.output = cms.OutputModule(
 		'PoolOutputModule',
-		outputCommands = cms.untracked.vstring("keep *",
+		outputCommands = cms.untracked.vstring("drop *",
+                        "keep *_QWzdcreco_*_*"
 			),
 		SelectEvents = cms.untracked.PSet(
 			SelectEvents = cms.vstring('digiPath')
