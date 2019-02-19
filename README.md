@@ -19,6 +19,7 @@
 
 ## Software
 
+0. Calibration should work from Run *326776*.
 1. This EDProducer produces the ZDC RecHit collection used by various down stream EDAnalyzer, such as HiForest.
 2. The calibration constants are loaded as python modules.
 3. The current calibration is very rough. The pedestal is not subtracted. The Plus side and Minus side do not have the same spectrum shape.
@@ -32,7 +33,7 @@ git clone git@github.com:BetterWang/QWZDC2018RecHit.git
 cd QWZDC2018RecHit
 scram b
 cd test
-cmsRun recHitRAW_cfg.py runNumber=326480 runInputDir=/eos/cms/store/hidata/HIRun2018A/HIMinimumBias2/RAW/v1/000/ source=PoolSource rawTag='rawDataRepacker' outputTag=_MB2RecHit hlt=HLT_HIMinimumBias_part2_v`
+cmsRun recHitRAW_cfg.py runNumber=327560 runInputDir=/eos/cms/store/hidata/HIRun2018A/HIMinimumBias1/AOD/PromptReco-v2/000/ rawTag='' outputTag=_MB1RecHit hlt=HLT_HIMinimumBias_ source=PoolSource
 ```
 
 # Again, VERY PRELIMINARY
