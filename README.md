@@ -19,7 +19,6 @@
 
 ## Software
 
-0. Calibration should work from Run *326776*.
 1. This EDProducer produces the ZDC RecHit collection used by various down stream EDAnalyzer, such as HiForest.
 2. The calibration constants are loaded as python modules.
 3. The current calibration is very rough. The pedestal is not subtracted. The Plus side and Minus side do not have the same spectrum shape.
@@ -38,4 +37,4 @@ cmsRun recHitRAW_cfg.py runNumber=327560 runInputDir=/eos/cms/store/hidata/HIRun
 
 # Again, VERY PRELIMINARY
 
-## Works from LHC Fill 7433, CMS Run 326476
+## Works from CMS Run *326776*
