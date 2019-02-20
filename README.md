@@ -38,3 +38,5 @@ cmsRun recHitRAW_cfg.py runNumber=327560 runInputDir=/eos/cms/store/hidata/HIRun
 # Again, VERY PRELIMINARY
 
 ## Works from CMS Run *326776*
+
+1. tag `v1.0` -- HiForest version
