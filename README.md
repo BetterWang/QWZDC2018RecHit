@@ -44,3 +44,10 @@ cmsRun recHitRAW_cfg.py runNumber=327560 runInputDir=/eos/cms/store/hidata/HIRun
 ## Works from CMS Run *326776*
 
 1. tag `v1.0` -- HiForest version
+
+# PU branch
+
+Pile-up rejection update for 2018 PbPb data using ZDC. An example python config can be found at:
+```
+test/zdcPU_filter.py
+```
