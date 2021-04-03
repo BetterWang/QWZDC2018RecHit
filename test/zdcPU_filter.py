@@ -110,8 +110,7 @@ process.zdcPUfilter = cms.EDFilter('QWZDCPUFilter',
     src = cms.untracked.InputTag("newCent"),
     posPars = cms.untracked.vdouble(1098914.0, -174.),
     negPars = cms.untracked.vdouble(1322071.0, -193.),
-    mode = cms.untracked.int32(3),
-    debug = cms.untracked.bool(True)
+    mode = cms.untracked.int32(3)
 )
 
 process.p = cms.Path(
